@@ -25,7 +25,7 @@ const middleware = [
     },
   }),
   // myMiddleware,
-  logger,
+  // logger,
 ];
 
 // const contactsPersistConfig = {

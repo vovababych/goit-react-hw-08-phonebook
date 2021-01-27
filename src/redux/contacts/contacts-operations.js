@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 // import {
 //   addContactRequest,
 //   addContactSuccess,
@@ -23,12 +24,18 @@ export const fetchContacts = () => async dispatch => {
   } catch (error) {
     dispatch(actions.fetchContactError(error));
   }
-
-  // axios
-  //   .get('/contacts')
-  //   .then(response => dispatch(fetchContactSuccess(response.data)))
-  //   .catch(error => dispatch(fetchContactError(error)));
 };
+
+// export const addContact = (name, tel) => async dispatch => {
+//   const contact = { name, tel };
+//   dispatch(actions.addContactRequest());
+//   try {
+//     const response = axios.post('/contacts', contact);
+//     dispatch(actions.addContactSuccess(response.data));
+//   } catch (error) {
+//     dispatch(actions.addContactError(error));
+//   }
+// };
 
 export const addContact = (name, tel) => dispatch => {
   const contact = { name, tel };
@@ -46,3 +53,30 @@ export const deleteContact = id => dispatch => {
     .then(() => dispatch(actions.deleteContactSuccess(id)))
     .catch(error => dispatch(actions.deleteContactError(error)));
 };
+
+// export const fetchContacts = createAsyncThunk(
+//   'contacts/fetchContacts',
+//   async () => {
+//     const response = await axios.get('/contacts');
+//     console.log('response.data', response.data);
+//     return response.data;
+//   },
+// );
+
+// export const addContact = createAsyncThunk(
+//   'contacts/addContact',
+//   async (name, tel) => {
+//     const contact = { name, tel };
+//     const response = await axios.post('/contacts', contact);
+//     console.log('response', response);
+//     return response;
+//   },
+// );
+
+// export const deleteContact = createAsyncThunk(
+//   'contacts/deleteContact',
+//   async id => {
+//     const response = await axios.delete(`/contacts/${id}`);
+//     return id;
+//   },
+// );

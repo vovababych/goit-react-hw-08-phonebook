@@ -1,14 +1,13 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import * as contactsOperations from '../../redux/contacts/contacts-operations';
-import * as actions from '../../redux/contacts/contacts-actions';
-import { getContacts } from '../../redux/contacts/contacts-selectors';
-import PropTypes from 'prop-types';
+
+import { selectors, operations, actions } from 'redux/contacts';
 
 function ContactForm() {
   const [name, setName] = useState('');
   const [tel, setTel] = useState('');
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectors.getContacts);
   const dispatch = useDispatch();
 
   const handleChangeName = e => {
@@ -19,8 +18,7 @@ function ContactForm() {
     setTel(e.target.value);
   };
 
-  const onAdd = (name, tel) =>
-    dispatch(contactsOperations.addContact(name, tel));
+  const onAdd = (name, tel) => dispatch(operations.addContact(name, tel));
 
   const onCheckforUniqName = name => {
     const uniqName = !!contacts.find(

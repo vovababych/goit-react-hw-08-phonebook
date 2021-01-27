@@ -1,10 +1,10 @@
-import { useSelector, useDispatch } from 'react-redux';
-import * as actions from '../../redux/contacts/contacts-actions';
-import { getFilter } from '../../redux/contacts/contacts-selectors';
 import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { selectors, actions } from 'redux/contacts';
 
 function Filter() {
-  const filter = useSelector(getFilter);
+  const filter = useSelector(selectors.getFilter);
   const dispatch = useDispatch();
 
   const onFilter = e => dispatch(actions.filterContacts(e.target.value));

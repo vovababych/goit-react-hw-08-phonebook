@@ -1,26 +1,27 @@
 import axios from 'axios';
-import {
-  addContactRequest,
-  addContactSuccess,
-  addContactError,
-  deleteContactRequest,
-  deleteContactSuccess,
-  deleteContactError,
-  fetchContactRequest,
-  fetchContactSuccess,
-  fetchContactError,
-} from './contacts-actions';
+// import {
+//   addContactRequest,
+//   addContactSuccess,
+//   addContactError,
+//   deleteContactRequest,
+//   deleteContactSuccess,
+//   deleteContactError,
+//   fetchContactRequest,
+//   fetchContactSuccess,
+//   fetchContactError,
+// } from './contacts-actions';
+import { actions } from './';
 
 axios.defaults.baseURL = 'http://localhost:4040';
 
 export const fetchContacts = () => async dispatch => {
-  dispatch(fetchContactRequest());
+  dispatch(actions.fetchContactRequest());
 
   try {
     const response = await axios.get('/contacts');
-    dispatch(fetchContactSuccess(response.data));
+    dispatch(actions.fetchContactSuccess(response.data));
   } catch (error) {
-    dispatch(fetchContactError(error));
+    dispatch(actions.fetchContactError(error));
   }
 
   // axios
@@ -31,17 +32,17 @@ export const fetchContacts = () => async dispatch => {
 
 export const addContact = (name, tel) => dispatch => {
   const contact = { name, tel };
-  dispatch(addContactRequest());
+  dispatch(actions.addContactRequest());
   axios
     .post('/contacts', contact)
-    .then(response => dispatch(addContactSuccess(response.data)))
-    .catch(error => dispatch(addContactError(error)));
+    .then(response => dispatch(actions.addContactSuccess(response.data)))
+    .catch(error => dispatch(actions.addContactError(error)));
 };
 
 export const deleteContact = id => dispatch => {
-  dispatch(deleteContactRequest(id));
+  dispatch(actions.deleteContactRequest(id));
   axios
     .delete(`/contacts/${id}`)
-    .then(() => dispatch(deleteContactSuccess(id)))
-    .catch(error => dispatch(deleteContactError(error)));
+    .then(() => dispatch(actions.deleteContactSuccess(id)))
+    .catch(error => dispatch(actions.deleteContactError(error)));
 };

@@ -25,12 +25,12 @@ function ContactsList() {
 
       <ul className={s.contactsList}>
         {filteredContacts.length > 0 &&
-          filteredContacts.map(({ id, name, tel }) => (
+          filteredContacts.map(({ id, name, phone }) => (
             <li key={id} className={s.contact}>
               <span className={s.name}>{name}</span>
               <span className={s.phone}>
-                <a href={`tel:+${tel.toString().replace(/[^\d;]/g, '')}`}>
-                  {tel}
+                <a href={`phone:+${phone.toString().replace(/[^\d;]/g, '')}`}>
+                  {phone}
                 </a>
               </span>
               <button

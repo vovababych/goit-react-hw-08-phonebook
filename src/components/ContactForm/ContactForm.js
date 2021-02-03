@@ -48,8 +48,8 @@ function ContactForm() {
     const checkUniqName = onCheckforUniqName(name);
     if (!checkUniqName) return;
 
-    const telephone = formatNumber(tel);
-    onAdd(name, telephone);
+    const phone = formatNumber(tel);
+    onAdd({ name, phone });
     reset();
   };
 

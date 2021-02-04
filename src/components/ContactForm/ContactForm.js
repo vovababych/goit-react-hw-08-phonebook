@@ -2,12 +2,16 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { selectors, operations, actions } from 'redux/contacts';
+import {
+  contactsSelectors,
+  contactsOperations,
+  checkUniqName,
+} from 'redux/contacts';
 
 function ContactForm() {
   const [name, setName] = useState('');
   const [tel, setTel] = useState('');
-  const contacts = useSelector(selectors.getContacts);
+  const contacts = useSelector(contactsSelectors.getContacts);
   const dispatch = useDispatch();
 
   const handleChangeName = e => {
@@ -18,7 +22,8 @@ function ContactForm() {
     setTel(e.target.value);
   };
 
-  const onAdd = (name, tel) => dispatch(operations.addContact(name, tel));
+  const onAdd = (name, tel) =>
+    dispatch(contactsOperations.addContact(name, tel));
 
   const onCheckforUniqName = name => {
     const uniqName = !!contacts.find(
@@ -34,7 +39,7 @@ function ContactForm() {
       return false;
     }
 
-    return dispatch(actions.checkUniqName(name));
+    return dispatch(checkUniqName(name));
   };
 
   const formatNumber = tel => {

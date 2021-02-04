@@ -2,20 +2,20 @@ import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { selectors, operations } from 'redux/contacts';
+import { contactsSelectors, contactsOperations } from 'redux/contacts';
 
 import s from './ContactsList.module.css';
 
 function ContactsList() {
   const dispatch = useDispatch();
 
-  useEffect(() => dispatch(operations.fetchContacts()), [dispatch]);
+  useEffect(() => dispatch(contactsOperations.fetchContacts()), [dispatch]);
 
-  const filteredContacts = useSelector(selectors.getFilteredContacts);
-  const isLoading = useSelector(selectors.getIsLoading);
-  const error = useSelector(selectors.getError);
+  const filteredContacts = useSelector(contactsSelectors.getFilteredContacts);
+  const isLoading = useSelector(contactsSelectors.getIsLoading);
+  const error = useSelector(contactsSelectors.getError);
 
-  const onDeleteContact = id => dispatch(operations.deleteContact(id));
+  const onDeleteContact = id => dispatch(contactsOperations.deleteContact(id));
 
   return (
     <>

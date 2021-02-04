@@ -11,3 +11,12 @@ export const getFilteredContacts = createSelector(
 );
 export const getIsLoading = state => state.contacts.loading;
 export const getError = state => state.contacts.error;
+
+const contactsSelectors = {
+  getContacts,
+  getFilter,
+  getFilteredContacts,
+  getIsLoading,
+  getError,
+};
+export default contactsSelectors;

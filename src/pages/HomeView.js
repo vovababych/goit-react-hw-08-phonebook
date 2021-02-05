@@ -1,3 +1,7 @@
-export default function HomeView() {
-  return <h1>Приветственная старница</h1>;
+const homeStyle = {
+  textAlign: 'center',
+};
+
+export default function HomeView({ name }) {
+  return <h1 style={homeStyle}>Приветствую тебя, {name} </h1>;
 }

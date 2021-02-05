@@ -22,8 +22,7 @@ function ContactForm() {
     setTel(e.target.value);
   };
 
-  const onAdd = (name, tel) =>
-    dispatch(contactsOperations.addContact(name, tel));
+  const onAdd = contact => dispatch(contactsOperations.addContact(contact));
 
   const onCheckforUniqName = name => {
     const uniqName = !!contacts.find(
@@ -53,8 +52,8 @@ function ContactForm() {
     const checkUniqName = onCheckforUniqName(name);
     if (!checkUniqName) return;
 
-    const phone = formatNumber(tel);
-    onAdd({ name, phone });
+    const number = formatNumber(tel);
+    onAdd({ name, number });
     reset();
   };
 

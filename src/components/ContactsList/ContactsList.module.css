@@ -31,7 +31,7 @@
 .name::first-letter {
   text-transform: uppercase;
 }
-.phone {
+.number {
   font-size: 0.75rem;
   font-weight: bold;
   padding: 0 10px;
@@ -41,7 +41,7 @@
   outline: none;
   border-bottom: 3px solid #c1c1c138;
 }
-.phone a {
+.number a {
   text-decoration: none;
   color: inherit;
 }

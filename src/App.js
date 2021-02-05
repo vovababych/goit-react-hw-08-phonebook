@@ -1,6 +1,6 @@
 import { useEffect, Suspense, lazy } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Switch } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import AppBar from './components/AppBar';
 import { authOperations, authSelectors } from 'redux/auth';
@@ -11,6 +11,7 @@ const HomeView = lazy(() => import('./pages/HomeView'));
 const RegisterView = lazy(() => import('./pages/RegisterView'));
 const LoginView = lazy(() => import('./pages/LoginView'));
 const ContactsView = lazy(() => import('./pages/ContactsView'));
+const NotFoundView = lazy(() => import('./pages/NotFoundView'));
 
 function App() {
   const dispatch = useDispatch();
@@ -27,8 +28,8 @@ function App() {
     !isFetchingCurrentUser && (
       <>
         <AppBar />
-        <Switch>
-          <Suspense fallback={<p>Загрузка...</p>}>
+        <Suspense fallback={<p>Загрузка...</p>}>
+          <Switch>
             <PublicRoute exact path="/">
               <HomeView name={userName ? userName : 'незнакомец'} />
             </PublicRoute>
@@ -41,8 +42,9 @@ function App() {
             <PrivateRoute path="/contacts" redirectTo="/">
               <ContactsView />
             </PrivateRoute>
-          </Suspense>
-        </Switch>
+            <Route component={NotFoundView} />
+          </Switch>
+        </Suspense>
       </>
     )
   );

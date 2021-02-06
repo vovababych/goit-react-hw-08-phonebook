@@ -1,11 +1,12 @@
-import { useEffect, Suspense, lazy } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { Suspense, lazy } from 'react';
+import { useSelector } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
+import { authSelectors } from 'redux/auth';
 
-import AppBar from './components/AppBar';
-import { authOperations, authSelectors } from 'redux/auth';
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
+import AppBar from './components/AppBar';
+import Notifications, { notify } from 'react-notify-toast';
 
 const HomeView = lazy(() => import('./pages/HomeView'));
 const RegisterView = lazy(() => import('./pages/RegisterView'));
@@ -14,21 +15,19 @@ const ContactsView = lazy(() => import('./pages/ContactsView'));
 const NotFoundView = lazy(() => import('./pages/NotFoundView'));
 
 function App() {
-  const dispatch = useDispatch();
   const userName = useSelector(authSelectors.getUsername);
   const isFetchingCurrentUser = useSelector(
     authSelectors.getIsFetchingCurrentUser,
   );
-
-  useEffect(() => {
-    dispatch(authOperations.fetchCurrentUser());
-  }, [dispatch]);
+  const error = useSelector(authSelectors.getAuthError);
 
   return (
     !isFetchingCurrentUser && (
       <>
         <AppBar />
         <Suspense fallback={<p>Загрузка...</p>}>
+          <Notifications />
+          {error && notify.show(error, 'error', 2000)}
           <Switch>
             <PublicRoute exact path="/">
               <HomeView name={userName ? userName : 'незнакомец'} />

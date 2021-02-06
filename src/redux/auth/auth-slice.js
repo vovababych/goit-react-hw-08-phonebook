@@ -50,6 +50,7 @@ const authSlice = createSlice({
     },
 
     [authOperations.fetchCurrentUser.pending](state) {
+      state.error = null;
       state.isFetchingCurrentUser = true;
     },
     [authOperations.fetchCurrentUser.fulfilled](state, action) {

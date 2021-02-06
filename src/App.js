@@ -21,6 +21,7 @@ function App() {
     authSelectors.getIsFetchingCurrentUser,
   );
   const error = useSelector(authSelectors.getAuthError);
+
   useEffect(() => {
     dispatch(authOperations.fetchCurrentUser());
   }, [dispatch]);

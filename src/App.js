@@ -1,7 +1,7 @@
-import { Suspense, lazy } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, Suspense, lazy } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
-import { authSelectors } from 'redux/auth';
+import { authOperations, authSelectors } from 'redux/auth';
 
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
@@ -15,11 +15,15 @@ const ContactsView = lazy(() => import('./pages/ContactsView'));
 const NotFoundView = lazy(() => import('./pages/NotFoundView'));
 
 function App() {
+  const dispatch = useDispatch();
   const userName = useSelector(authSelectors.getUsername);
   const isFetchingCurrentUser = useSelector(
     authSelectors.getIsFetchingCurrentUser,
   );
   const error = useSelector(authSelectors.getAuthError);
+  useEffect(() => {
+    dispatch(authOperations.fetchCurrentUser());
+  }, [dispatch]);
 
   return (
     !isFetchingCurrentUser && (
